@@ -1,0 +1,10 @@
+{
+	"entry": ["src/*.ts"],
+	"format": ["esm"],
+	"platform": "node",
+	"target": "ESNext",
+	"minify": true,
+	"sourcemap": true,
+	"outDir": "dist",
+	"clean": true
+}
