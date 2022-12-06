@@ -1,7 +1,4 @@
-import { readFileSync } from "node:fs";
-
-const input = readFileSync("./inputs/2022/3", { encoding: "utf-8" });
-///////////////////////////////////////////////////////////////////////////////
+import { getInput } from "../getInput";
 
 const getPriority = (letter: string) => {
 	const charCode =
@@ -9,7 +6,7 @@ const getPriority = (letter: string) => {
 
 	return letter === letter.toUpperCase() ? charCode + 26 : charCode;
 };
-const rucksacks = input.split("\n");
+const rucksacks = getInput("2022/3").split("\n");
 const groups = 3;
 let sum1 = 0,
 	sum2 = 0;

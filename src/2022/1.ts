@@ -1,9 +1,6 @@
-import { readFileSync } from "node:fs";
+import { getInput } from "../getInput";
 
-const input = readFileSync("./inputs/2022/1", { encoding: "utf-8" });
-///////////////////////////////////////////////////////////////////////////////
-
-const elves = input
+const elves = getInput("2022/1")
 	.split("\n\n")
 	.map((i) => i.split("\n").reduce((a, b) => a + Number(b), 0))
 	.sort((a, b) => b - a);

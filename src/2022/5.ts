@@ -1,9 +1,6 @@
-import { readFileSync } from "node:fs";
+import { getInput } from "../getInput";
 
-const input = readFileSync("./inputs/2022/5", { encoding: "utf-8" });
-///////////////////////////////////////////////////////////////////////////////
-
-const inputs = input.split(/\s\s(?:[1-9]\s+)+/);
+const inputs = getInput("2022/5").split(/\s\s(?:[1-9]\s+)+/);
 const crates: string[][] = [];
 
 for (const line of inputs[0].split("\n")) {

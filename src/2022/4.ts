@@ -1,7 +1,4 @@
-import { readFileSync } from "node:fs";
-
-const input = readFileSync("./inputs/2022/4", { encoding: "utf-8" });
-///////////////////////////////////////////////////////////////////////////////
+import { getInput } from "../getInput";
 
 type Sections = [number, number];
 
@@ -9,7 +6,7 @@ const isIncluded1 = ([start1, end1]: Sections, [start2, end2]: Sections) =>
 	start1 >= start2 && end1 <= end2;
 const isIncluded2 = ([start1]: Sections, [start2, end2]: Sections) =>
 	start1 >= start2 && start1 <= end2;
-const rows = input
+const rows = getInput("2022/4")
 	.split("\n")
 	.map(
 		(r) =>

@@ -1,7 +1,4 @@
-import { readFileSync } from "node:fs";
-
-const input = readFileSync("./inputs/2022/2", { encoding: "utf-8" });
-///////////////////////////////////////////////////////////////////////////////
+import { getInput } from "../getInput";
 
 const points: Record<string, number> = {
 	A: 1,
@@ -26,7 +23,7 @@ const calculateScore = (opponent: string, end: string): number => {
 };
 let score = 0;
 
-for (const entry of input.split("\n")) {
+for (const entry of getInput("2022/2").split("\n")) {
 	const split = entry.split(" ");
 	const [opponent, end] = split;
 

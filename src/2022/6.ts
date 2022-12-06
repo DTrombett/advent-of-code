@@ -1,8 +1,6 @@
-import { readFileSync } from "node:fs";
+import { getInput } from "../getInput";
 
-const input = readFileSync("./inputs/2022/6", { encoding: "utf-8" });
-///////////////////////////////////////////////////////////////////////////////
-
+const input = getInput("2022/6");
 const chars = 14;
 let result = 0;
 
