@@ -1,12 +1,14 @@
-import { getInput } from "../getInput";
+import { getInput, time } from "../utils";
 
 type Sections = [number, number];
+const input = getInput("2022/4");
+const start = performance.now();
 
 const isIncluded1 = ([start1, end1]: Sections, [start2, end2]: Sections) =>
 	start1 >= start2 && end1 <= end2;
 const isIncluded2 = ([start1]: Sections, [start2, end2]: Sections) =>
 	start1 >= start2 && start1 <= end2;
-const rows = getInput("2022/4")
+const rows = input
 	.split("\n")
 	.map(
 		(r) =>
@@ -24,5 +26,6 @@ for (const [section1, section2] of rows) {
 	if (isIncluded2(section1, section2) || isIncluded2(section2, section1))
 		count2++;
 }
+const end = performance.now();
 
-console.log(count1, count2);
+console.log(count1, count2, time(start, end));

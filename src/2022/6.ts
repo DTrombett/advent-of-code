@@ -1,6 +1,8 @@
-import { getInput } from "../getInput";
+import { getInput, time } from "../utils";
 
 const input = getInput("2022/6");
+const start = performance.now();
+
 const chars = 14;
 let result = 0;
 
@@ -12,4 +14,6 @@ for (let i = chars; i < input.length; i++) {
 		break;
 	}
 }
-console.log(result);
+const end = performance.now();
+
+console.log(result, time(start, end));

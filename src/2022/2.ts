@@ -1,4 +1,7 @@
-import { getInput } from "../getInput";
+import { getInput, time } from "../utils";
+
+const input = getInput("2022/2");
+const start = performance.now();
 
 const points: Record<string, number> = {
 	A: 1,
@@ -23,12 +26,13 @@ const calculateScore = (opponent: string, end: string): number => {
 };
 let score = 0;
 
-for (const entry of getInput("2022/2").split("\n")) {
+for (const entry of input.split("\n")) {
 	const split = entry.split(" ");
 	const [opponent, end] = split;
 
 	score += endPoints[end];
 	score += calculateScore(opponent, end);
 }
+const end = performance.now();
 
-console.log(score);
+console.log(score, time(start, end));

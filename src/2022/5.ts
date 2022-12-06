@@ -1,6 +1,9 @@
-import { getInput } from "../getInput";
+import { getInput, time } from "../utils";
 
-const inputs = getInput("2022/5").split(/\s\s(?:[1-9]\s+)+/);
+const input = getInput("2022/5");
+const start = performance.now();
+
+const inputs = input.split(/\s\s(?:[1-9]\s+)+/);
 const crates: string[][] = [];
 
 for (const line of inputs[0].split("\n")) {
@@ -18,4 +21,7 @@ for (const instruction of inputs[1].split("\n")) {
 		...crates[instructions[1] - 1].splice(0, instructions[0])
 	);
 }
-console.log(crates.map((c) => c[0]).join(""));
+const result = crates.map((c) => c[0]).join("");
+const end = performance.now();
+
+console.log(result, time(start, end));

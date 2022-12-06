@@ -1,4 +1,7 @@
-import { getInput } from "../getInput";
+import { getInput, time } from "../utils";
+
+const input = getInput("2022/3");
+const start = performance.now();
 
 const getPriority = (letter: string) => {
 	const charCode =
@@ -6,7 +9,7 @@ const getPriority = (letter: string) => {
 
 	return letter === letter.toUpperCase() ? charCode + 26 : charCode;
 };
-const rucksacks = getInput("2022/3").split("\n");
+const rucksacks = input.split("\n");
 const groups = 3;
 let sum1 = 0,
 	sum2 = 0;
@@ -30,5 +33,6 @@ for (let i = 0; i < rucksacks.length; i += groups) {
 
 	sum2 += getPriority(letter);
 }
+const end = performance.now();
 
-console.log(sum1, sum2);
+console.log(sum1, sum2, time(start, end));
