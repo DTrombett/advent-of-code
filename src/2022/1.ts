@@ -10,6 +10,7 @@ const elves = input
 	.sort((a, b) => b - a);
 
 for (let i = 0; i < 3; i++) sum += elves[i];
+const [first] = elves;
 const end = performance.now();
 
-console.log(elves[0], sum, time(start, end));
+console.log(first, sum, time(start, end));
