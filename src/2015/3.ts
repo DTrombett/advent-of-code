@@ -4,26 +4,31 @@ const input = getInput("2015/3");
 const start = performance.now();
 
 const visited = new Set(["0-0"]);
-const position = [0, 0];
+const positions = [
+	[0, 0],
+	[0, 0],
+];
+let turn = 0;
 
 for (const char of input) {
 	switch (char) {
 		case "^":
-			position[1]++;
+			positions[turn][1]++;
 			break;
 		case "v":
-			position[1]--;
+			positions[turn][1]--;
 			break;
 		case "<":
-			position[0]--;
+			positions[turn][0]--;
 			break;
 		case ">":
-			position[0]++;
+			positions[turn][0]++;
 			break;
 		default:
 			break;
 	}
-	visited.add(position.join("-"));
+	visited.add(positions[turn].join("-"));
+	turn = turn - 1 && 1;
 }
 const { size } = visited;
 const end = performance.now();
