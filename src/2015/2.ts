@@ -9,12 +9,7 @@ const result = input.split("\n").reduce((sum, line) => {
 		.map((n) => Number(n))
 		.sort((a, b) => a - b);
 
-	return (
-		sum +
-		3 * array[0] * array[1] +
-		2 * array[1] * array[2] +
-		2 * array[0] * array[2]
-	);
+	return sum + array[0] * 2 + array[1] * 2 + array[0] * array[1] * array[2];
 }, 0);
 const end = performance.now();
 
