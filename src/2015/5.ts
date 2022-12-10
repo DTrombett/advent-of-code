@@ -4,20 +4,25 @@ const input = getInput("2015/5");
 const start = performance.now();
 
 const lines = input.split("\n");
-const vowels = ["a", "e", "i", "o", "u"];
-const disallowed = ["ab", "cd", "pq", "xy"];
 let count = 0;
 
-for (const line of lines) {
+for (const string of lines) {
 	let double = true,
-		v = 0;
+		repeating = true;
 
-	for (let i = 0; i < line.length && (double || v !== 3); i++) {
-		if (v !== 3 && vowels.includes(line[i])) v++;
-		if (double && line[i] === line[i + 1]) double = false;
+	for (
+		let i = 0;
+		i < string.length && (double || (repeating && i !== string.length - 1));
+		i++
+	) {
+		if (
+			repeating &&
+			(string.match(new RegExp(string.slice(i, i + 2), "g"))?.length ?? 0) > 1
+		)
+			repeating = false;
+		if (double && string[i] === string[i + 2]) double = false;
 	}
-	if (!double && v === 3 && disallowed.every((dis) => !line.includes(dis)))
-		count++;
+	if (!(double || repeating)) count++;
 }
 const end = performance.now();
 
