@@ -6,7 +6,7 @@ const start = performance.now();
 
 let number = 0;
 
-while (!md5(`${input}${number}`).startsWith("00000")) number++;
+while (!md5(`${input}${number}`).startsWith("000000")) number++;
 const end = performance.now();
 
 console.log(number, time(start, end));
