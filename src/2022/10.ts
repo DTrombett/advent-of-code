@@ -3,27 +3,36 @@ import { getInput, time } from "../utils";
 const input = getInput("2022/10");
 const start = performance.now();
 
+const spriteWidth = 3,
+	// eslint-disable-next-line sort-vars
+	sideWidth = (spriteWidth - 1) / 2,
+	width = 40;
 const lines = input.split("\n");
-const cycles: number[] = [];
-let cycle = 1,
-	strengthSum = 0,
+const crt = Array.from({ length: 6 }, () => new Array<boolean>(width));
+let cycle = 0,
+	row = 0,
 	x = 1;
-const checkCycle = () => {
-	if (cycles.includes(cycle)) strengthSum += cycle * x;
+const fillCRT = () => {
+	crt[row][cycle] = cycle >= x - sideWidth && cycle <= x + sideWidth;
+};
+const increaseCycle = () => {
+	fillCRT();
+	cycle = (cycle + 1) % 40;
+	if (cycle === 0) row++;
 };
 
-for (let c = 20; c <= 220; c += 40) cycles.push(c);
-for (let i = 0; i < lines.length; i++, cycle++) {
-	const [cmd, arg] = lines[i].split(" ");
+for (const line of lines) {
+	increaseCycle();
+	const [cmd, arg] = line.split(" ");
 
-	checkCycle();
-	if (cmd === "noop") continue;
-	else if (cmd === "addx") {
-		cycle++;
-		checkCycle();
+	if (cmd === "addx") {
+		increaseCycle();
 		x += Number(arg);
 	}
 }
+const display = crt
+	.map((r) => r.map((v) => (v ? "#" : ".")).join(""))
+	.join("\n");
 const end = performance.now();
 
-console.log(strengthSum, time(start, end));
+console.log(display, time(start, end));
