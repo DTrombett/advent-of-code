@@ -16,13 +16,13 @@ const monkeyData = input.split("\n\n").map((m) => {
 		inspected: 0,
 	};
 });
+const check = monkeyData.reduce((a, b) => a * b.test, 1);
 
-for (let i = 1; i <= 20; i++)
+for (let i = 1; i <= 10_000; i++)
 	for (const monkey of monkeyData) {
 		for (const item of monkey.items) {
-			const worry = Math.floor(
-				(0, eval)(monkey.operation.replaceAll("old", item.toString())) / 3
-			);
+			const worry =
+				(0, eval)(monkey.operation.replaceAll("old", item.toString())) % check;
 
 			monkeyData[
 				monkey[worry % monkey.test === 0 ? "ifTrue" : "ifFalse"]
