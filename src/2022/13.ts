@@ -4,13 +4,10 @@ type Packet = Packet[] | number;
 const input = getInput("2022/13");
 const start = performance.now();
 
-let sum = 0;
+const dividers = [[[2]], [[6]]];
 const packets = input
 	.split("\n\n")
-	.map((i) => i.split("\n").map((text) => JSON.parse(text) as Packet)) as [
-	Packet,
-	Packet
-][];
+	.flatMap((i) => i.split("\n").map((text) => JSON.parse(text) as Packet));
 const compare = (...[left, right]: Packet[]): number => {
 	if (typeof left === "number" && typeof right === "number")
 		return left - right;
@@ -29,8 +26,9 @@ const compare = (...[left, right]: Packet[]): number => {
 	return 0;
 };
 
-for (let i = 0; i < packets.length; i++)
-	if (compare(...packets[i]) < 0) sum += i + 1;
+packets.push(...dividers);
+packets.sort(compare);
+const key = dividers.reduce((a, b) => a * (packets.indexOf(b) + 1), 1);
 const end = performance.now();
 
-console.log(sum, time(start, end));
+console.log(key, time(start, end));
