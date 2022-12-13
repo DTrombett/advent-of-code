@@ -12,14 +12,13 @@ const packets = input
 	Packet
 ][];
 const compare = (...[left, right]: Packet[]): number => {
-	const tLeft = typeof left,
-		tRight = typeof right;
-
-	if (tLeft === "number" && tRight === "number")
-		return Number(left > right) - Number(left < right);
-	if (tLeft === "number" && tRight === "object") return compare([left], right);
-	if (tLeft === "object" && tRight === "number") return compare(left, [right]);
-	if (Array.isArray(left) && Array.isArray(right)) {
+	if (typeof left === "number" && typeof right === "number")
+		return left - right;
+	if (typeof left === "number" && typeof right === "object")
+		return compare([left], right);
+	if (typeof left === "object" && typeof right === "number")
+		return compare(left, [right]);
+	if (typeof left === "object" && typeof right === "object") {
 		for (let j = 0; j < left.length; j++) {
 			const result = compare(left[j], right[j]);
 
@@ -31,7 +30,7 @@ const compare = (...[left, right]: Packet[]): number => {
 };
 
 for (let i = 0; i < packets.length; i++)
-	if (compare(...packets[i]) === -1) sum += i + 1;
+	if (compare(...packets[i]) < 0) sum += i + 1;
 const end = performance.now();
 
 console.log(sum, time(start, end));
