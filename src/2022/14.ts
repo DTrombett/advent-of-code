@@ -6,7 +6,7 @@ const cave: boolean[][] = [];
 const sand = [0, 0];
 let infinity = true,
 	maxY = 0,
-	units = -1;
+	units = 0;
 
 for (const line of input.split("\n")) {
 	// eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -32,11 +32,13 @@ for (const line of input.split("\n")) {
 		}
 	}
 }
+maxY += 1;
 while (infinity) {
 	sand[0] = 500;
 	sand[1] = 0;
-	units++;
-	while (infinity) {
+	while (true as boolean) {
+		let blocked = false;
+
 		if (!cave[sand[0]]?.[sand[1] + 1]) sand[1]++;
 		else if (!cave[sand[0] - 1]?.[sand[1] + 1]) {
 			sand[0]--;
@@ -44,12 +46,14 @@ while (infinity) {
 		} else if (!cave[sand[0] + 1]?.[sand[1] + 1]) {
 			sand[0]++;
 			sand[1]++;
-		} else {
+		} else blocked = true;
+		if (blocked || sand[1] === maxY) {
 			(cave[sand[0]] ??= [])[sand[1]] = true;
+			if (sand[1] === 0) infinity = false;
 			break;
 		}
-		if (sand[1] === maxY) infinity = false;
 	}
+	units++;
 }
 const end = performance.now();
 
