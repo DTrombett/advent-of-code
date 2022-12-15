@@ -142,7 +142,6 @@ module.exports = {
 		"@typescript-eslint/consistent-type-imports": "warn",
 		"@typescript-eslint/class-literal-property-style": "warn",
 		"@typescript-eslint/member-ordering": "warn",
-		"@typescript-eslint/no-confusing-non-null-assertion": "warn",
 		"@typescript-eslint/no-confusing-void-expression": "warn",
 		"@typescript-eslint/no-duplicate-imports": "warn",
 		"@typescript-eslint/no-explicit-any": "off",
