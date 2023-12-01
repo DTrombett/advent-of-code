@@ -1,26 +1,22 @@
 {
-	"include": [
-		"src",
-		".eslintrc.cjs"
+	"include": ["src/index.ts", "src/2023"],
+	"extends": [
+		"@tsconfig/recommended/tsconfig.json",
+		"@tsconfig/strictest/tsconfig.json",
+		"@tsconfig/node20/tsconfig.json"
 	],
-	"extends": "@tsconfig/node18/tsconfig.json",
 	"compilerOptions": {
-		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
-		"allowUnreachableCode": false,
 		"alwaysStrict": true,
 		"esModuleInterop": true,
-		"isolatedModules": true,
-		"noFallthroughCasesInSwitch": true,
+		"exactOptionalPropertyTypes": false,
 		"noImplicitAny": true,
-		"noImplicitReturns": true,
 		"noImplicitThis": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"outDir": "dist",
+		"noPropertyAccessFromIndexSignature": false,
+		"outDir": "./dist",
 		"pretty": true,
 		"resolveJsonModule": true,
-		"sourceMap": true,
-		"module": "ESNext",
+		"rootDir": "./src",
+		"sourceMap": true
 	}
 }
