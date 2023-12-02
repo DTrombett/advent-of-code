@@ -13,6 +13,7 @@
 		"noImplicitAny": true,
 		"noImplicitThis": true,
 		"noPropertyAccessFromIndexSignature": false,
+		"noUncheckedIndexedAccess": false,
 		"outDir": "./dist",
 		"pretty": true,
 		"resolveJsonModule": true,
