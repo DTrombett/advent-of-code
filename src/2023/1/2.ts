@@ -1,5 +1,3 @@
-const firstMatcher = /\d/g;
-const defaultArray = ["0"] as const;
 const secondMatcher = /^(one|two|three|four|five|six|seven|eight|nine)/;
 const numbers: Record<string, string> = {
 	one: "1",
@@ -13,14 +11,7 @@ const numbers: Record<string, string> = {
 	nine: "9",
 };
 
-export const firstPart = (input: string) =>
-	input.split("\n").reduce((sum, string) => {
-		const match = string.match(firstMatcher) ?? defaultArray;
-
-		return sum + parseInt(match[0] + match.at(-1));
-	}, 0);
-
-export const secondPart = (input: string) =>
+const secondPart = (input: string) =>
 	input.split("\n").reduce((sum, string) => {
 		const array: string[] = [];
 
@@ -33,3 +24,5 @@ export const secondPart = (input: string) =>
 			}
 		return sum + parseInt(`${array[0]}${array.at(-1)}`);
 	}, 0);
+
+export default secondPart;

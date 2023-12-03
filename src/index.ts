@@ -1,34 +1,28 @@
 import { readFile } from "node:fs/promises";
 import { argv } from "node:process";
 
-type FirstPart = (input: string) => unknown;
-type SecondPart = (input: string, result: unknown) => unknown;
+type ExecuteFunction = (input: string) => unknown;
 
-const [file, input]: [
-	{ firstPart: FirstPart; secondPart?: SecondPart },
+const [input, { default: firstPart }, { default: secondPart }]: [
 	string,
+	{ default: ExecuteFunction },
+	{ default?: ExecuteFunction },
 ] = await Promise.all([
-	import(`./${argv[2]}.js`),
 	readFile(`./inputs/${argv[2]}`, { encoding: "utf-8" }),
+	import(`./${argv[2]}/1.js`),
+	import(`./${argv[2]}/2.js`).catch(() => ({})),
 ]);
+const start = performance.now();
+const firstResult = await firstPart(input);
+const firstTime = performance.now();
+const secondResult = await secondPart?.(input);
+const secondTime = secondPart && performance.now();
 
-if (argv[3] === "1") {
-	const start = performance.now();
-
-	console.log(await file.firstPart(input), `${performance.now() - start}ms`);
-} else {
-	const start = performance.now();
-	const firstPart = await file.firstPart(input);
-	const firstTime = performance.now();
-	const secondPart = await file.secondPart?.(input, firstPart);
-	const secondTime = file.secondPart && performance.now();
-
-	console.log(
-		"First part:",
-		firstPart,
-		`${firstTime - start}ms\nSecond part:`,
-		file.secondPart ? secondPart : "N/A",
-		secondTime !== undefined ? `${secondTime - firstTime}ms\n` : "",
-		secondTime !== undefined ? `Total: ${secondTime - start}ms` : ""
-	);
-}
+console.log(
+	"First part:",
+	firstResult,
+	`${firstTime - start}ms\nSecond part:`,
+	secondPart ? secondResult : "N/A",
+	secondTime !== undefined ? `${secondTime - firstTime}ms\n` : "",
+	secondTime !== undefined ? `Total: ${secondTime - start}ms` : ""
+);
