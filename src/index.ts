@@ -20,7 +20,6 @@ const [input] = await Promise.all([
 					[join(argv[2], "1")]: join(folder, "1.ts"),
 					[join(argv[2], "2")]: join(folder, "2.ts"),
 			  },
-		silent: true,
 	}),
 ]);
 const [{ default: firstPart }, { default: secondPart }]: DayFile[] =
