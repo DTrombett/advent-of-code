@@ -8,6 +8,7 @@ export default defineConfig({
 	format: "esm",
 	minify: "terser",
 	outDir: "dist",
+	replaceNodeEnv: true,
 	silent: true,
 	skipNodeModulesBundle: false,
 	target: "esnext",

@@ -1,6 +1,6 @@
 const regexp = /Card\s+(?<card>\d+):\s+(?<winning>.*)\s+\|\s+(?<mine>.*)/g;
 
-const firstPart = (input: string) => {
+const secondPart = (input: string) => {
 	let total = 0;
 	const repeat: (number | undefined)[] = [];
 
@@ -22,4 +22,4 @@ const firstPart = (input: string) => {
 	return total;
 };
 
-export default firstPart;
+export default secondPart;
