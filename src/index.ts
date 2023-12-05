@@ -24,8 +24,10 @@ await build({
 	onSuccess: async () => {
 		const [{ default: firstPart }, { default: secondPart }]: DayFile[] =
 			await Promise.all([
-				(!argv[3] || argv[3] === "1") && import(`./${argv[2]}/1.js`),
-				(!argv[3] || argv[3] === "2") && import(`./${argv[2]}/2.js`),
+				(!argv[3] || argv[3] === "1") &&
+					import(`./${argv[2]}/1.js?${Date.now()}`),
+				(!argv[3] || argv[3] === "2") &&
+					import(`./${argv[2]}/2.js?${Date.now()}`),
 			]);
 		const start = firstPart && performance.now();
 		const firstResult = await firstPart?.(input);
