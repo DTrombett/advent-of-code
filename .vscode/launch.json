@@ -2,11 +2,10 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run current TypeScript file",
-			"type": "node",
+			"command": "npm start 2023/7 2",
+			"name": "Run npm start",
 			"request": "launch",
-			"program": "${workspaceFolder}\\dist\\${fileBasenameNoExtension}.js",
-			"preLaunchTask": "Compile TypeScript file",
-		},
+			"type": "node-terminal"
+		}
 	]
 }

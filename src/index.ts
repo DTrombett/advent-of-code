@@ -9,7 +9,9 @@ export type DayFile = { default?: ExecuteFunction };
 if (argv[3] && argv[3] !== "1" && argv[3] !== "2")
 	throw new TypeError("Invalid day number provided");
 const folder = join("src", argv[2]);
-const input = await readFile(`./inputs/${argv[2]}`, { encoding: "utf-8" });
+const input = (
+	await readFile(`./inputs/${argv[2]}`, { encoding: "utf-8" })
+).trimEnd();
 
 await build({
 	config: "tsup.config.ts",
