@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 type Sections = [number, number];
 const input = getInput("2022/4");
@@ -14,8 +15,8 @@ const rows = input
 		(r) =>
 			r.split(",").map((s) => s.split("-").map((n) => Number(n))) as [
 				Sections,
-				Sections
-			]
+				Sections,
+			],
 	);
 let count1 = 0;
 let count2 = 0;
@@ -28,4 +29,4 @@ for (const [section1, section2] of rows) {
 }
 const end = performance.now();
 
-console.log(count1, count2, time(start, end));
+log(count1, count2, time(start, end));

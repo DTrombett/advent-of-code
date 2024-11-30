@@ -1,3 +1,4 @@
+import { log } from "node:console";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { argv } from "node:process";
@@ -17,11 +18,11 @@ await build({
 	config: "tsup.config.ts",
 	clean: false,
 	entry: argv[3]
-		? { [join(argv[2], `${argv[3]}`)]: join(folder, `${argv[3]}.ts`) }
+		? { [join(argv[2], argv[3])]: join(folder, `${argv[3]}.ts`) }
 		: {
 				[join(argv[2], "1")]: join(folder, "1.ts"),
 				[join(argv[2], "2")]: join(folder, "2.ts"),
-		  },
+			},
 	watch: true,
 	onSuccess: async () => {
 		const [{ default: firstPart }, { default: secondPart }]: DayFile[] =
@@ -37,7 +38,7 @@ await build({
 		const secondResult = await secondPart?.(input);
 		const secondTime = secondPart && performance.now();
 
-		console.log(
+		log(
 			"First part:",
 			firstPart ? firstResult : "N/A",
 			start === undefined ? "" : `${firstTime - start}ms`,
@@ -46,7 +47,7 @@ await build({
 			secondTime === undefined ? "" : `${secondTime - firstTime}ms`,
 			secondTime === undefined || start === undefined
 				? ""
-				: `\n\tTotal: ${secondTime - start}ms`
+				: `\n\tTotal: ${secondTime - start}ms`,
 		);
 	},
 });

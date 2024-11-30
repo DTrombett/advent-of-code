@@ -1,18 +1,19 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2022/11");
 const start = performance.now();
 
 const monkeyData = input.split("\n\n").map((m) => {
 	const [, startingItems, operation, test, ifTrue, ifFalse] =
-		m.split(/\n.*: /g);
+		m.split(/\n.*: /gu);
 
 	return {
 		items: startingItems.split(", ").map((n) => Number(n)),
 		operation: operation.slice(6),
-		test: Number(test.split(" ").at(-1)!),
-		ifTrue: Number(ifTrue.split(" ").at(-1)!),
-		ifFalse: Number(ifFalse.split(" ").at(-1)!),
+		test: Number(test.split(" ").at(-1)),
+		ifTrue: Number(ifTrue.split(" ").at(-1)),
+		ifFalse: Number(ifFalse.split(" ").at(-1)),
 		inspected: 0,
 	};
 });
@@ -22,6 +23,7 @@ for (let i = 1; i <= 10_000; i++)
 	for (const monkey of monkeyData) {
 		for (const item of monkey.items) {
 			const worry =
+				// eslint-disable-next-line no-eval
 				(0, eval)(monkey.operation.replaceAll("old", item.toString())) % check;
 
 			monkeyData[
@@ -36,4 +38,4 @@ const business =
 	monkeyData[1].inspected;
 const end = performance.now();
 
-console.log(business, time(start, end));
+log(business, time(start, end));

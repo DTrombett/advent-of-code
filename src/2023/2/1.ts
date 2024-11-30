@@ -16,8 +16,9 @@ const firstPart = (input: string) =>
 		const [, n, ...data] = string.split(" ");
 
 		for (let i = 0; i < data.length; i += 2)
-			if (parseInt(data[i]) > colors[resolvedColors[data[i + 1]]]) return sum;
-		return sum + parseInt(n);
+			if (parseInt(data[i], 10) > colors[resolvedColors[data[i + 1]]])
+				return sum;
+		return sum + parseInt(n, 10);
 	}, 0);
 
 export default firstPart;

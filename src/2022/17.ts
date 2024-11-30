@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-array-delete */
 /* eslint-disable @typescript-eslint/no-loop-func */
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 type Coordinates = [number, number][];
 type Rock = {
@@ -123,7 +125,7 @@ for (let i = 0; i < 2022; i++) {
 		;
 		yOffset > 0 &&
 		(rock.down ?? rock.positions).every(
-			(p) => !cave[p[0] + yOffset]?.[p[1] + xOffset]
+			(p) => !cave[p[0] + yOffset]?.[p[1] + xOffset],
 		);
 		yOffset--
 	) {
@@ -133,7 +135,7 @@ for (let i = 0; i < 2022; i++) {
 			if (
 				xOffset &&
 				(rock.left ?? rock.positions).every(
-					(p) => !cave[yOffset + p[0]]?.[p[1] + xOffset - 1]
+					(p) => !cave[yOffset + p[0]]?.[p[1] + xOffset - 1],
 				)
 			) {
 				deleteRock(rock, yOffset, xOffset--);
@@ -143,7 +145,7 @@ for (let i = 0; i < 2022; i++) {
 			instruction === ">" &&
 			xOffset + (rock.right ?? rock.positions)[0][1] < 6 &&
 			(rock.right ?? rock.positions).every(
-				(p) => !cave[yOffset + p[0]]?.[p[1] + xOffset + 1]
+				(p) => !cave[yOffset + p[0]]?.[p[1] + xOffset + 1],
 			)
 		) {
 			deleteRock(rock, yOffset, xOffset++);
@@ -155,4 +157,4 @@ for (let i = 0; i < 2022; i++) {
 const { length } = cave;
 const end = performance.now();
 
-console.log(length, time(start, end));
+log(length, time(start, end));

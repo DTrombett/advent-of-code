@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2022/2");
 const start = performance.now();
@@ -35,4 +36,4 @@ for (const entry of input.split("\n")) {
 }
 const end = performance.now();
 
-console.log(score, time(start, end));
+log(score, time(start, end));

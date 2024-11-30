@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2015/3");
 const start = performance.now();
@@ -33,4 +34,4 @@ for (const char of input) {
 const { size } = visited;
 const end = performance.now();
 
-console.log(size, time(start, end));
+log(size, time(start, end));

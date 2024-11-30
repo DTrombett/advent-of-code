@@ -1,5 +1,5 @@
-const splitter = /\n\n/;
-const matcher = /([A-Z]+) = \(([A-Z]+), ([A-Z]+)\)/g;
+const splitter = /\n\n/u;
+const matcher = /([A-Z]+) = \(([A-Z]+), ([A-Z]+)\)/gu;
 enum Instruction {
 	L,
 	R,

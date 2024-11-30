@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 type Valve = {
 	name: string;
@@ -11,7 +12,7 @@ const input = getInput("2022/16");
 const start = performance.now();
 
 const valves: Valve[] = input.split("\n").map((line) => {
-	const [name, pressure, ...tunnelsString] = line.match(/\d+|[A-Z]{2}/g)!;
+	const [name, pressure, ...tunnelsString] = line.match(/\d+|[A-Z]{2}/gu)!;
 
 	return {
 		name,
@@ -43,4 +44,4 @@ for (let min = 1; min <= 30; min++) {
 }
 const end = performance.now();
 
-console.log(pressure, time(start, end));
+log(pressure, time(start, end));

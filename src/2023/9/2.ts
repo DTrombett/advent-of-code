@@ -2,7 +2,7 @@ const firstPart = (input: string) =>
 	input.split("\n").reduce((sum, history) => {
 		const sequence = history.split(" ") as unknown as number[];
 		let needContinue: boolean;
-		let first = parseInt(sequence[0] as unknown as string);
+		let first = parseInt(sequence[0] as unknown as string, 10);
 		let add = false as boolean;
 
 		do {
@@ -17,7 +17,7 @@ const firstPart = (input: string) =>
 			if ((add = !add)) first -= sequence[0];
 			else first += sequence[0];
 		} while (needContinue);
-		return (sum += first);
+		return sum + first;
 	}, 0);
 
 export default firstPart;

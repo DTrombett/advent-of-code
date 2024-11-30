@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2022/8");
 const start = performance.now();
@@ -41,4 +42,4 @@ for (let i = 0; i < rows.length; i++)
 	}
 const end = performance.now();
 
-console.log(score, time(start, end));
+log(score, time(start, end));

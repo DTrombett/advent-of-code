@@ -13,7 +13,7 @@ type Result = {
 };
 
 const Card: Record<string, number> = {
-	"J": 0,
+	J: 0,
 	"2": 2,
 	"3": 3,
 	"4": 4,
@@ -22,10 +22,10 @@ const Card: Record<string, number> = {
 	"7": 7,
 	"8": 8,
 	"9": 9,
-	"T": 10,
-	"Q": 11,
-	"K": 12,
-	"A": 13,
+	T: 10,
+	Q: 11,
+	K: 12,
+	A: 13,
 };
 const points: Record<string, Result | undefined> = {};
 const bid: Record<string, number> = {};
@@ -49,7 +49,7 @@ const resolvePoints = (hand: string): Result => {
 	const cards: number[] = [];
 	const resolvedCards: number[] = [];
 
-	bid[hand] = parseInt(hand.slice(6));
+	bid[hand] = parseInt(hand.slice(6), 10);
 	for (const char of hand) {
 		if (char === " ") break;
 		const resolved = Card[char];
@@ -89,10 +89,10 @@ const resolvePoints = (hand: string): Result => {
 			type: result.pair!.length
 				? ResultType.Full
 				: result.jolly === 0
-				  ? ResultType.Three
-				  : result.jolly === 1
-				    ? ResultType.Four
-				    : ResultType.Five,
+					? ResultType.Three
+					: result.jolly === 1
+						? ResultType.Four
+						: ResultType.Five,
 			cards: resolvedCards,
 		};
 	if (result.pair) {
@@ -102,10 +102,10 @@ const resolvePoints = (hand: string): Result => {
 					result.jolly === 0
 						? ResultType.OnePair
 						: result.jolly === 1
-						  ? ResultType.Three
-						  : result.jolly === 2
-						    ? ResultType.Four
-						    : ResultType.Five,
+							? ResultType.Three
+							: result.jolly === 2
+								? ResultType.Four
+								: ResultType.Five,
 				cards: resolvedCards,
 			};
 		if (result.pair.length === 2)
@@ -128,8 +128,8 @@ const compareHands = (a: string, b: string) => {
 	points[a] ??= resolvePoints(a);
 	points[b] ??= resolvePoints(b);
 	return (
-		points[a]!.type - points[b]!.type ||
-		compareCards(points[a]!.cards, points[b]!.cards)
+		points[a].type - points[b].type ||
+		compareCards(points[a].cards, points[b].cards)
 	);
 };
 

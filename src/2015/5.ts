@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2015/5");
 const start = performance.now();
@@ -17,7 +18,7 @@ for (const string of lines) {
 	) {
 		if (
 			repeating &&
-			(string.match(new RegExp(string.slice(i, i + 2), "g"))?.length ?? 0) > 1
+			(string.match(new RegExp(string.slice(i, i + 2), "gu"))?.length ?? 0) > 1
 		)
 			repeating = false;
 		if (double && string[i] === string[i + 2]) double = false;
@@ -26,4 +27,4 @@ for (const string of lines) {
 }
 const end = performance.now();
 
-console.log(count, time(start, end));
+log(count, time(start, end));

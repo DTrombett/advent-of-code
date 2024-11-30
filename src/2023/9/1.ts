@@ -3,7 +3,7 @@ const firstPart = (input: string) =>
 		const sequence = history.split(" ") as unknown as number[];
 		let needContinue: boolean;
 
-		sum += parseInt(sequence.at(-1) as unknown as string);
+		sum += parseInt(sequence.at(-1) as unknown as string, 10);
 		do {
 			needContinue = false;
 			for (let j = 1; j < sequence.length; j++) {

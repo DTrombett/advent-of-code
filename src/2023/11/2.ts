@@ -1,4 +1,4 @@
-const matcher = /#/g;
+const matcher = /#/gu;
 
 const secondPart = (input: string) => {
 	const lineBreak = input.indexOf("\n");
@@ -8,8 +8,8 @@ const secondPart = (input: string) => {
 	let sum = 0;
 
 	for (const { index } of input.matchAll(matcher)) {
-		const x = index! % lineLength;
-		const y = Math.floor(index! / lineLength);
+		const x = index % lineLength;
+		const y = Math.floor(index / lineLength);
 
 		for (const [x1, y1] of toCheck) {
 			const max = Math.max(x, x1);

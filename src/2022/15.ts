@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2022/15");
 const start = performance.now();
@@ -7,9 +8,9 @@ const bacons: string[] = [];
 const max = 4_000_000;
 let position: [number, number] | undefined;
 const sensors = input.split("\n").map((line) => {
-	const split = line.split(/(at|:) /g);
+	const split = line.split(/(at|:) /gu);
 	const coord = [split[2], split[6]].map((a) =>
-		a.split(", ").map((n) => Number(n.slice(2)))
+		a.split(", ").map((n) => Number(n.slice(2))),
 	);
 	const diff =
 		Math.abs(coord[0][0] - coord[1][0]) + Math.abs(coord[0][1] - coord[1][1]);
@@ -31,10 +32,10 @@ for (const s of sensors) {
 			x >= s.coord[0] && y > s.coord[1]
 				? (x++, y--)
 				: y <= s.coord[1] && x > s.coord[0]
-				? (x--, y--)
-				: x <= s.coord[0] && y < s.coord[1]
-				? (x--, y++)
-				: (x++, y++)
+					? (x--, y--)
+					: x <= s.coord[0] && y < s.coord[1]
+						? (x--, y++)
+						: (x++, y++)
 	)
 		if (
 			x >= 0 &&
@@ -42,7 +43,7 @@ for (const s of sensors) {
 			y >= 0 &&
 			y <= max &&
 			sensors.every(
-				(p) => Math.abs(x - p.coord[0]) + Math.abs(y - p.coord[1]) > p.diff
+				(p) => Math.abs(x - p.coord[0]) + Math.abs(y - p.coord[1]) > p.diff,
 			)
 		)
 			position = [x, y];
@@ -51,4 +52,4 @@ for (const s of sensors) {
 const result = position![0] * 4_000_000 + position![1];
 const end = performance.now();
 
-console.log(result, time(start, end));
+log(result, time(start, end));

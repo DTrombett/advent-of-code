@@ -57,9 +57,9 @@ const firstPart = (input: string) => {
 			(sum, line, y) =>
 				sum +
 				[...line.slice(lx, -lx)].filter(
-					(_, x) => !points.includes(`${y + ly},${x + lx}`)
+					(_, x) => !points.includes(`${y + ly},${x + lx}`),
 				).length,
-			0
+			0,
 		);
 };
 

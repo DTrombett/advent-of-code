@@ -1,9 +1,9 @@
 {
-	"include": ["src/index.ts", "src/2023"],
+	"include": ["src"],
 	"extends": [
 		"@tsconfig/recommended/tsconfig.json",
 		"@tsconfig/strictest/tsconfig.json",
-		"@tsconfig/node20/tsconfig.json"
+		"@tsconfig/node22/tsconfig.json"
 	],
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,

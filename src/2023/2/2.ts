@@ -22,11 +22,11 @@ const secondPart = (input: string) =>
 
 		for (let i = 0; i < data.length; i += 2) {
 			const resolved = resolvedColors[data[i + 1]];
-			const n = parseInt(data[i]);
+			const n = parseInt(data[i], 10);
 
 			if (n > highest[resolved]) highest[resolved] = n;
 		}
-		return sum + highest["blue"] * highest["green"] * highest["red"];
+		return sum + highest.blue * highest.green * highest.red;
 	}, 0);
 
 export default secondPart;

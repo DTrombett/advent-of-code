@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2015/2");
 const start = performance.now();
@@ -13,4 +14,4 @@ const result = input.split("\n").reduce((sum, line) => {
 }, 0);
 const end = performance.now();
 
-console.log(result, time(start, end));
+log(result, time(start, end));

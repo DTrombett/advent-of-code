@@ -1,4 +1,6 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2022/14");
 const start = performance.now();
@@ -43,10 +45,11 @@ while (infinity) {
 		else if (!cave[sand[0] - 1]?.[sand[1] + 1]) {
 			sand[0]--;
 			sand[1]++;
-		} else if (!cave[sand[0] + 1]?.[sand[1] + 1]) {
+		} else if (cave[sand[0] + 1]?.[sand[1] + 1]) blocked = true;
+		else {
 			sand[0]++;
 			sand[1]++;
-		} else blocked = true;
+		}
 		if (blocked || sand[1] === maxY) {
 			(cave[sand[0]] ??= [])[sand[1]] = true;
 			if (sand[1] === 0) infinity = false;
@@ -57,4 +60,4 @@ while (infinity) {
 }
 const end = performance.now();
 
-console.log(units, time(start, end));
+log(units, time(start, end));

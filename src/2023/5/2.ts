@@ -1,19 +1,19 @@
-const matcher = /(\d+(\s|))+/g;
-const seedMatcher = /\d+\s\d+/g;
+const matcher = /(\d+(\s|))+/gu;
+const seedMatcher = /\d+\s\d+/gu;
 
 export const secondPart = (input: string) => {
 	const match = input.match(matcher)!;
 	const seeds = match[0]
 		.trimEnd()
 		.match(seedMatcher)!
-		.map((range) => range.split(" ").map((s) => parseInt(s)));
+		.map((range) => range.split(" ").map((s) => parseInt(s, 10)));
 	const handled = new Set<number[]>();
 
 	for (const strings of match.slice(1)) {
 		const map = strings
 			.trimEnd()
 			.split("\n")
-			.map((line) => line.split(" ").map((n) => parseInt(n)));
+			.map((line) => line.split(" ").map((n) => parseInt(n, 10)));
 
 		for (const [destination, start, range] of map) {
 			const end = start + range;
@@ -33,7 +33,7 @@ export const secondPart = (input: string) => {
 						// start seedStart end seedEnd
 						newRanges.push(
 							// end seedEnd
-							[range + destination, seedEnd - end]
+							[range + destination, seedEnd - end],
 						);
 						// seedStart end
 						seed[1] = end - seed[0];
@@ -48,7 +48,7 @@ export const secondPart = (input: string) => {
 						// seedStart start
 						[seed[0], start - seed[0]],
 						// end seedEnd
-						[end, seedEnd - end]
+						[end, seedEnd - end],
 					);
 					// start end
 					seed[0] = destination;
@@ -60,7 +60,7 @@ export const secondPart = (input: string) => {
 					// seedStart start seedEnd end
 					newRanges.push(
 						// seedStart start
-						[seed[0], start - seed[0]]
+						[seed[0], start - seed[0]],
 					);
 					// start seedEnd
 					seed[1] += seed[0] - start;

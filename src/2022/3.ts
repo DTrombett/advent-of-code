@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2022/3");
 const start = performance.now();
@@ -35,4 +36,4 @@ for (let i = 0; i < rucksacks.length; i += groups) {
 }
 const end = performance.now();
 
-console.log(sum1, sum2, time(start, end));
+log(sum1, sum2, time(start, end));

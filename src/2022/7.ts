@@ -1,5 +1,6 @@
 /* eslint-disable guard-for-in */
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 type Dir = {
 	[_ in string]?: Dir | number;
@@ -44,4 +45,4 @@ for (const s of sizes)
 	if (s > neededSpace && s < folderToDelete) folderToDelete = s;
 const end = performance.now();
 
-console.log(sum, folderToDelete, time(start, end));
+log(sum, folderToDelete, time(start, end));

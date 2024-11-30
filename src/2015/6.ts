@@ -1,11 +1,12 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2015/6");
 const start = performance.now();
 
 const lines = input.split("\n");
 const lights = Array.from({ length: 1_000 }, () =>
-	new Array<number>(1_000).fill(0)
+	new Array<number>(1_000).fill(0),
 );
 
 for (const l of lines) {
@@ -13,7 +14,7 @@ for (const l of lines) {
 
 	if (split[0] === "turn") split.splice(0, 1);
 	const [startX, startY, endX, endY] = [split[1], split[3]].flatMap((el) =>
-		el.split(",").map((n) => Number(n))
+		el.split(",").map((n) => Number(n)),
 	);
 	const add = split[0] === "on" ? 1 : split[0] === "toggle" ? 2 : -1;
 
@@ -24,4 +25,4 @@ for (const l of lines) {
 const brightness = lights.flat().reduce((a, b) => a + b);
 const end = performance.now();
 
-console.log(brightness, time(start, end));
+log(brightness, time(start, end));

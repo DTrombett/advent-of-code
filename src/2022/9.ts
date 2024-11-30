@@ -1,5 +1,6 @@
 /* eslint-disable sort-vars */
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 const input = getInput("2022/9");
 const start = performance.now();
@@ -40,4 +41,4 @@ for (const line of input.split("\n")) {
 const { size } = touched;
 const end = performance.now();
 
-console.log(size, time(start, end));
+log(size, time(start, end));

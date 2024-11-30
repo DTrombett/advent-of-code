@@ -8,11 +8,11 @@ export default defineConfig({
 	bundle: false,
 	external: [],
 	format: "esm",
-	minify: env.NODE_ENV === "production" ? "terser" : false,
+	minify: env.NODE_ENV === "production",
 	outDir: "dist",
 	replaceNodeEnv: true,
 	silent: true,
 	skipNodeModulesBundle: false,
 	target: "esnext",
-	sourcemap: env.NODE_ENV === "production" ? false : "inline",
+	sourcemap: env.NODE_ENV !== "production",
 });

@@ -1,4 +1,4 @@
-const secondMatcher = /^(one|two|three|four|five|six|seven|eight|nine)/;
+const secondMatcher = /^(one|two|three|four|five|six|seven|eight|nine)/u;
 const numbers: Record<string, string> = {
 	one: "1",
 	two: "2",
@@ -16,13 +16,13 @@ const secondPart = (input: string) =>
 		const array: string[] = [];
 
 		for (let i = 0; i < string.length; i++)
-			if (string[i]! >= "0" && string[i]! <= "9") array.push(string[i]!);
+			if (string[i] >= "0" && string[i] <= "9") array.push(string[i]);
 			else {
-				const value = string.slice(i).match(secondMatcher)?.[0];
+				const value = secondMatcher.exec(string.slice(i))?.[0];
 
-				if (value !== undefined) array.push(numbers[value]!);
+				if (value !== undefined) array.push(numbers[value]);
 			}
-		return sum + parseInt(`${array[0]}${array.at(-1)}`);
+		return sum + parseInt(`${array[0]}${array.at(-1)}`, 10);
 	}, 0);
 
 export default secondPart;

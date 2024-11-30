@@ -1,4 +1,5 @@
-import { getInput, time } from "../utils";
+import { log } from "node:console";
+import { getInput, time } from "../utils.js";
 
 type Packet = Packet[] | number;
 const input = getInput("2022/13");
@@ -31,4 +32,4 @@ packets.sort(compare);
 const key = dividers.reduce((a, b) => a * (packets.indexOf(b) + 1), 1);
 const end = performance.now();
 
-console.log(key, time(start, end));
+log(key, time(start, end));

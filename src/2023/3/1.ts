@@ -6,7 +6,7 @@ const firstPart = (input: string) => {
 
 	for (let y = 0; y < split.length; y++)
 		for (let x = 0; x < split[y].length; x++) {
-			const number = parseInt(split[y].slice(x));
+			const number = parseInt(split[y].slice(x), 10);
 
 			if (Number.isNaN(number)) continue;
 			const { length } = number.toString();

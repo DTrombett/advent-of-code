@@ -21,7 +21,7 @@ const secondPart = (input: string) => {
 						let x2 = x1 - 1;
 
 						while (isNumber(lastLine[x2])) x2--;
-						const number = parseInt(lastLine.slice(x2 + 1));
+						const number = parseInt(lastLine.slice(x2 + 1), 10);
 
 						ratio *= number;
 						found++;
@@ -40,7 +40,7 @@ const secondPart = (input: string) => {
 						let x2 = x1 - 1;
 
 						while (isNumber(nextLine[x2])) x2--;
-						const number = parseInt(nextLine.slice(x2 + 1));
+						const number = parseInt(nextLine.slice(x2 + 1), 10);
 
 						ratio *= number;
 						found++;
@@ -52,13 +52,13 @@ const secondPart = (input: string) => {
 				let x2 = x - 1;
 
 				while (isNumber(split[y][x2])) x2--;
-				ratio *= parseInt(split[y].slice(x2 + 1, x));
+				ratio *= parseInt(split[y].slice(x2 + 1, x), 10);
 				found++;
 			}
 			if (found === 0) continue;
 			if (isNumber(split[y][x + 1])) {
 				if (found === 2) continue;
-				const number = parseInt(split[y].slice(x + 1));
+				const number = parseInt(split[y].slice(x + 1), 10);
 
 				ratio *= number;
 				x += number.toString().length;

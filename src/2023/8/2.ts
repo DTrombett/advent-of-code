@@ -1,5 +1,5 @@
-const splitter = /\n\n/;
-const matcher = /([A-Z]+) = \(([A-Z]+), ([A-Z]+)\)/g;
+const splitter = /\n\n/u;
+const matcher = /([A-Z]+) = \(([A-Z]+), ([A-Z]+)\)/gu;
 const gcd = (a: number, b: number): number => (a ? gcd(b % a, a) : b);
 const lcm = (a: number, b: number) => (a * b) / gcd(a, b);
 enum Instruction {

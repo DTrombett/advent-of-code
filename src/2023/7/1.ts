@@ -21,11 +21,11 @@ const Card: Record<string, number> = {
 	"7": 7,
 	"8": 8,
 	"9": 9,
-	"T": 10,
-	"J": 11,
-	"Q": 12,
-	"K": 13,
-	"A": 14,
+	T: 10,
+	J: 11,
+	Q: 12,
+	K: 13,
+	A: 14,
 };
 const points: Record<string, Result | undefined> = {};
 const bid: Record<string, number> = {};
@@ -47,7 +47,7 @@ const resolvePoints = (hand: string): Result => {
 	const cards: number[] = [];
 	const resolvedCards: number[] = [];
 
-	bid[hand] = parseInt(hand.slice(6));
+	bid[hand] = parseInt(hand.slice(6), 10);
 	for (const char of hand) {
 		if (char === " ") break;
 		const resolved = Card[char];
@@ -98,8 +98,8 @@ const compareHands = (a: string, b: string) => {
 	points[a] ??= resolvePoints(a);
 	points[b] ??= resolvePoints(b);
 	return (
-		points[a]!.type - points[b]!.type ||
-		compareCards(points[a]!.cards, points[b]!.cards)
+		points[a].type - points[b].type ||
+		compareCards(points[a].cards, points[b].cards)
 	);
 };
 
