@@ -1,8 +1,9 @@
 /* eslint-disable n/no-unpublished-import */
+import "dotenv/config";
 import { log } from "node:console";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { argv, stdin, stdout } from "node:process";
+import { argv, env, stdin, stdout } from "node:process";
 import { build } from "tsup";
 // eslint-disable-next-line n/no-unsupported-features/node-builtins
 import { createInterface } from "node:readline/promises";
@@ -10,6 +11,7 @@ import { createInterface } from "node:readline/promises";
 export type ExecuteFunction = (input: string) => unknown;
 export type DayFile = { default: ExecuteFunction };
 
+const production = env.NODE_ENV === "production";
 const rl = createInterface({
 	input: stdin,
 	output: stdout,
@@ -28,7 +30,7 @@ const input = (
 await build({
 	clean: false,
 	config: "tsup.config.ts",
-	watch: folder,
+	watch: !production,
 	entry: part
 		? { [part]: join(folder, `${part}.ts`) }
 		: {
@@ -38,19 +40,21 @@ await build({
 	onSuccess: async () => {
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		setTimeout(async () => {
+			const now = Date.now();
+
 			if (part) {
 				const { default: func }: DayFile = await import(
-					`./${part}.js?${Date.now()}`
+					`./${part}.js${production ? "" : `?${now}`}`
 				);
-				const now = performance.now();
+				const start = performance.now();
 
-				log("Result:", await func(input), `\n${performance.now() - now}ms`);
+				log("Result:", await func(input), `\n${performance.now() - start}ms`);
 				return;
 			}
 			const [first, second] = (
 				await Promise.all([
-					import(`./1.js?${Date.now()}`),
-					import(`./2.js?${Date.now()}`),
+					import(`./1.js${production ? "" : `?${now}`}`),
+					import(`./2.js${production ? "" : `?${now}`}`),
 				])
 			).map((f: DayFile) => f.default);
 			const start = performance.now();

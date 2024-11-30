@@ -5,22 +5,16 @@ import { defineConfig } from "tsup";
 const production = env.NODE_ENV === "production";
 
 export default defineConfig({
-	bundle: production,
+	bundle: false,
 	clean: true,
-	entry: {
-		index: production ? "src/index.ts" : "src/dev.ts",
-	},
-	external: production ? [] : undefined,
+	entry: ["src/index.ts"],
 	format: "esm",
 	minify: production,
 	outDir: "dist",
 	platform: "node",
 	removeNodeProtocol: false,
 	replaceNodeEnv: true,
-	// silent: production,
-	skipNodeModulesBundle: !production,
+	silent: production,
 	sourcemap: !production,
 	target: "esnext",
-	// onSuccess,
-	// watch,
 });

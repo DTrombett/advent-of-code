@@ -9,10 +9,9 @@
 	"version": "0",
 	"scripts": {
 		"build": "tsup",
-		"dev": "cross-env NODE_ENV=development npm run build && node --enable-source-maps .",
 		"lint": "eslint src --fix",
 		"prettier": "prettier --write src/**/*.ts",
-		"start": "npm run build && node .",
+		"start": "tsup && node .",
 		"test": "tsc --noEmit && eslint src"
 	},
 	"engines": {
@@ -25,7 +24,6 @@
 		"@tsconfig/strictest": "^2.0.5",
 		"@types/eslint__js": "^8.42.3",
 		"@types/node": "^22.10.1",
-		"cross-env": "^7.0.3",
 		"dotenv": "^16.4.5",
 		"eslint": "^9.16.0",
 		"eslint-plugin-n": "^17.14.0",
