@@ -6,18 +6,14 @@
 		"@tsconfig/node22/tsconfig.json"
 	],
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"alwaysStrict": true,
-		"esModuleInterop": true,
-		"exactOptionalPropertyTypes": false,
-		"noImplicitAny": true,
-		"noImplicitThis": true,
+		"outDir": "dist",
 		"noPropertyAccessFromIndexSignature": false,
-		"noUncheckedIndexedAccess": false,
-		"outDir": "./dist",
-		"pretty": true,
-		"resolveJsonModule": true,
-		"rootDir": "./src",
-		"sourceMap": true
+		"exactOptionalPropertyTypes": false,
+		"isolatedModules": true,
+		"sourceMap": true,
+		"allowImportingTsExtensions": true,
+		"moduleResolution": "Bundler",
+		"noEmit": true,
+		"module": "Preserve"
 	}
 }

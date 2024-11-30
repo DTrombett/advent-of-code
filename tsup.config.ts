@@ -2,17 +2,25 @@ import "dotenv/config";
 import { env } from "node:process";
 import { defineConfig } from "tsup";
 
+const production = env.NODE_ENV === "production";
+
 export default defineConfig({
-	entry: ["src/index.ts"],
+	bundle: production,
 	clean: true,
-	bundle: false,
-	external: [],
+	entry: {
+		index: production ? "src/index.ts" : "src/dev.ts",
+	},
+	external: production ? [] : undefined,
 	format: "esm",
-	minify: env.NODE_ENV === "production",
+	minify: production,
 	outDir: "dist",
+	platform: "node",
+	removeNodeProtocol: false,
 	replaceNodeEnv: true,
-	silent: true,
-	skipNodeModulesBundle: false,
+	// silent: production,
+	skipNodeModulesBundle: !production,
+	sourcemap: !production,
 	target: "esnext",
-	sourcemap: env.NODE_ENV !== "production",
+	// onSuccess,
+	// watch,
 });
