@@ -7,6 +7,8 @@ enum Direction {
 	Left,
 }
 
+const resolveIndex = (position: Position, lineLength: number) =>
+	position[0] + position[1] * lineLength;
 const resolvePos: Record<
 	Direction,
 	(position: Position, lineLength: number) => number
@@ -28,37 +30,28 @@ const updatePos: Record<Direction, (position: Position) => number> = {
 };
 const checkLoop = (
 	input: string,
-	startPosition: StrictPosition,
-	obstacle: StrictPosition,
+	position: [...StrictPosition, Direction],
+	obstacle: number,
 	lineLength: number,
+	history: string[],
 ) => {
-	const tempObstacle = obstacle[1] * lineLength + obstacle[0];
-	const position: [...StrictPosition, Direction] = [
-		...startPosition,
-		Direction.Up,
-	];
-	const visited: string[] = [];
 	let nextPosition: string | undefined;
 
-	visited.push(position.join());
-	input = input.replace("^", ".");
+	history = history.slice();
 	do {
 		let nextIndex;
 
 		while (
 			(nextPosition =
 				input[(nextIndex = resolvePos[position[2]](position, lineLength))]) ===
-			"."
+				"." &&
+			nextIndex !== obstacle
 		) {
-			if (nextIndex === tempObstacle) {
-				nextPosition = "#";
-				break;
-			}
 			updatePos[position[2]](position);
 			const nextPos = position.join();
 
-			if (visited.includes(nextPos)) return true;
-			visited.push(nextPos);
+			if (history.includes(nextPos)) return true;
+			history.push(nextPos);
 		}
 		if (position[2] === Direction.Left) position[2] = Direction.Up;
 		else position[2]++;
@@ -73,25 +66,33 @@ const secondPart = (input: string) => {
 		index % lineLength,
 		Math.floor(index / lineLength),
 	];
-	const startPosition: StrictPosition = [...position];
-	const visited: string[] = [];
+	const visited: number[] = [];
+	const history: string[] = [];
 	let direction = Direction.Up;
 	let nextPosition: string | undefined;
 	let count = 0;
 
 	input = input.replace("^", ".");
-	visited.push(position.join());
+	visited.push(resolveIndex(position, lineLength));
 	do {
 		while (
 			(nextPosition = input[resolvePos[direction](position, lineLength)]) ===
 			"."
 		) {
-			updatePos[direction](position);
-			const newPosition = position.join(",");
+			const startPosition: [number, number, Direction] = [
+				position[0],
+				position[1],
+				direction,
+			];
 
-			if (!visited.includes(newPosition)) {
-				if (checkLoop(input, startPosition, position, lineLength)) count++;
-				visited.push(newPosition);
+			history.push(startPosition.join());
+			updatePos[direction](position);
+			const obstacle = resolveIndex(position, lineLength);
+
+			if (!visited.includes(obstacle)) {
+				if (checkLoop(input, startPosition, obstacle, lineLength, history))
+					count++;
+				visited.push(obstacle);
 			}
 		}
 		if (direction === Direction.Left) direction = Direction.Up;

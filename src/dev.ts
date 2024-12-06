@@ -2,6 +2,7 @@
 import "dotenv/config";
 import { error, log } from "node:console";
 import { readFile, watch } from "node:fs/promises";
+import { constants, setPriority } from "node:os";
 import { join } from "node:path";
 import { argv, stdin, stdout } from "node:process";
 // eslint-disable-next-line n/no-unsupported-features/node-builtins
@@ -22,6 +23,7 @@ const rl = createInterface({
 });
 let [year, day, part] = argv.slice(2).flatMap((a) => a.split("/"));
 
+setPriority(constants.priority.PRIORITY_HIGHEST);
 year ??= await rl.question("Year: ");
 day ??= await rl.question("Day: ");
 part ??= "";

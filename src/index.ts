@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { argv, stdin, stdout } from "node:process";
 import { setTimeout } from "node:timers/promises";
 // eslint-disable-next-line n/no-unsupported-features/node-builtins
+import { constants, setPriority } from "node:os";
 import { createInterface } from "node:readline/promises";
 import { pathToFileURL } from "node:url";
 
@@ -30,6 +31,7 @@ const rl = createInterface({
 });
 let [year, day, part] = argv.slice(2).flatMap((a) => a.split("/"));
 
+setPriority(constants.priority.PRIORITY_HIGHEST);
 year ??= await rl.question("Year: ");
 day ??= await rl.question("Day: ");
 part ??= "";
