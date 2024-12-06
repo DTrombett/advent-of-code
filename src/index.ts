@@ -1,20 +1,17 @@
-/* eslint-disable n/no-unpublished-import */
-import "dotenv/config";
-import { error, log } from "node:console";
+import { log } from "node:console";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { argv, env, stdin, stdout } from "node:process";
+import { argv, stdin, stdout } from "node:process";
 import { setTimeout } from "node:timers/promises";
-import { build } from "tsup";
 // eslint-disable-next-line n/no-unsupported-features/node-builtins
 import { createInterface } from "node:readline/promises";
+import { pathToFileURL } from "node:url";
 
 export type ExecuteFunction = (input: string) => unknown;
 export type DayFile = { default: ExecuteFunction; iterations?: number };
 
-const production = env.NODE_ENV === "production";
 const run = async (file: DayFile, input: string) => {
-	const iterations = file.iterations ?? (production ? 100 : 1);
+	const iterations = file.iterations ?? 10;
 	let result;
 	let time = 0;
 
@@ -42,49 +39,33 @@ const input = (
 	await readFile(join("inputs", year, day), { encoding: "utf-8" })
 ).trimEnd();
 
-await build({
-	bundle: true,
-	clean: false,
-	config: "tsup.config.ts",
-	watch: !production,
-	entry: part
-		? { [part]: join(folder, `${part}.ts`) }
-		: {
-				"1": join(folder, "1.ts"),
-				"2": join(folder, "2.ts"),
-			},
-	onSuccess: async () => {
-		await setTimeout();
-		try {
-			const now = Date.now();
+if (part) {
+	const file: DayFile = await import(
+		pathToFileURL(join(folder, `${part}.ts`)).href
+	);
+	const { result, time } = await run(file, input);
 
-			if (part) {
-				const file: DayFile = await import(
-					`./${part}.js${production ? "" : `?${now}`}`
-				);
-				const { result, time } = await run(file, input);
+	log("Result:", result, "\n", time, "ms");
+} else {
+	const [first, second]: [DayFile, DayFile] = await Promise.all([
+		import(pathToFileURL(join(folder, "1.ts")).href),
+		import(pathToFileURL(join(folder, "2.ts")).href),
+	]);
+	const firstResult = await run(first, input);
+	const secondResult = await run(second, input);
 
-				log("Result:", result, `\n${time}ms`);
-				return;
-			}
-			const [first, second]: [DayFile, DayFile] = await Promise.all([
-				import(`./1.js${production ? "" : `?${now}`}`),
-				import(`./2.js${production ? "" : `?${now}`}`),
-			]);
-			const firstResult = await run(first, input);
-			const secondResult = await run(second, input);
-
-			log(
-				"First part:",
-				firstResult.result,
-				`(${firstResult.time}ms)`,
-				"\nSecond part:",
-				secondResult.result,
-				`(${secondResult.time}ms)`,
-				`\n\tTotal: ${firstResult.time + secondResult.time}ms`,
-			);
-		} catch (err) {
-			error(err);
-		}
-	},
-});
+	log(
+		"First part:",
+		firstResult.result,
+		"(",
+		firstResult.time,
+		"ms)",
+		"\nSecond part:",
+		secondResult.result,
+		"(",
+		secondResult.time,
+		"ms)\n\tTotal:",
+		firstResult.time + secondResult.time,
+		"ms",
+	);
+}

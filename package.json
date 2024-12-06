@@ -1,7 +1,7 @@
 {
 	"description": "My solutions to the Advent of Code",
-	"exports": "./dist/index.js",
-	"main": "./dist/index.js",
+	"exports": "./src/index.ts",
+	"main": "./src/index.ts",
 	"name": "advent-of-code",
 	"author": "DTrombett",
 	"license": "MIT",
@@ -9,9 +9,10 @@
 	"version": "0",
 	"scripts": {
 		"build": "tsup",
+		"dev": "node --experimental-strip-types --experimental-transform-types src/dev.ts",
 		"lint": "eslint src --fix",
 		"prettier": "prettier --write src/**/*.ts",
-		"start": "tsup && node .",
+		"start": "node --experimental-strip-types --experimental-transform-types .",
 		"test": "tsc --noEmit && eslint src"
 	},
 	"engines": {
