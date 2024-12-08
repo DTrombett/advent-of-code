@@ -13,7 +13,7 @@ const resolveResult = (numbers: string[], t: number): boolean => {
 	return t === Number(n);
 };
 
-const secondPart = (input: string) => {
+const firstPart = (input: string) => {
 	let total = 0;
 
 	for (const [, r, n] of input.matchAll(regexp)) {
@@ -24,4 +24,4 @@ const secondPart = (input: string) => {
 	return total;
 };
 
-export default secondPart;
+export default firstPart;
