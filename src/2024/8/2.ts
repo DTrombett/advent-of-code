@@ -1,6 +1,6 @@
 const regexp = /[a-zA-Z0-9]/gu;
 
-const firstPart = (input: string) => {
+const secondPart = (input: string) => {
 	const maxX = input.indexOf("\n");
 	const lineLength = maxX + 1;
 	const maxY = Math.ceil(input.length / lineLength);
@@ -29,4 +29,4 @@ const firstPart = (input: string) => {
 	return antinodes.size;
 };
 
-export default firstPart;
+export default secondPart;
