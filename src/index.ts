@@ -1,10 +1,10 @@
 import { log } from "node:console";
 import { readFile } from "node:fs/promises";
+import { constants, setPriority } from "node:os";
 import { join } from "node:path";
 import { argv, stdin, stdout } from "node:process";
 import { setTimeout } from "node:timers/promises";
 // eslint-disable-next-line n/no-unsupported-features/node-builtins
-import { constants, setPriority } from "node:os";
 import { createInterface } from "node:readline/promises";
 import { pathToFileURL } from "node:url";
 
@@ -18,10 +18,10 @@ const run = async (file: DayFile, input: string) => {
 
 	for (let i = 0; i < iterations; i++) {
 		await setTimeout();
-		const now = performance.now();
+		const utilization = performance.eventLoopUtilization();
 
 		result = await file.default(input);
-		time += performance.now() - now;
+		time += performance.eventLoopUtilization().active - utilization.active;
 	}
 	return { result, time: time / iterations };
 };
@@ -31,6 +31,16 @@ const rl = createInterface({
 });
 let [year, day, part] = argv.slice(2).flatMap((a) => a.split("/"));
 
+new PerformanceObserver((list) => {
+	log(
+		list
+			.getEntries()
+			.map((e) => `${e.name}: ${e.duration}ms`)
+			.join("\n"),
+	);
+	performance.clearMarks();
+	performance.clearMeasures();
+}).observe({ entryTypes: ["function"] });
 setPriority(constants.priority.PRIORITY_HIGHEST);
 year ??= await rl.question("Year: ");
 day ??= await rl.question("Day: ");
