@@ -3,13 +3,13 @@ import { readFile, watch } from "node:fs/promises";
 import { constants, setPriority } from "node:os";
 import { join } from "node:path";
 import { argv, stdin, stdout } from "node:process";
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
 import { createInterface } from "node:readline/promises";
 import { pathToFileURL } from "node:url";
 
 export type ExecuteFunction = (input: string) => unknown;
 export type DayFile = { default: ExecuteFunction; iterations?: number };
 
+// eslint-disable-next-line @typescript-eslint/require-await
 const run = async (file: DayFile, input: string) =>
 	performance.timerify(file.default)(input);
 const rl = createInterface({
@@ -23,7 +23,7 @@ new PerformanceObserver((list) => {
 		list
 			.getEntries()
 			.map((e) => `${e.name}: ${e.duration}ms`)
-			.join("\n"),
+			.join("\n")
 	);
 	performance.clearMarks();
 	performance.clearMeasures();
@@ -35,7 +35,7 @@ part ??= "";
 rl.close();
 const folder = `src/${year}/${day}`;
 const input = (
-	await readFile(join("inputs", year, day), { encoding: "utf-8" })
+	await readFile(join("inputs", year, `${day}.txt`), { encoding: "utf-8" })
 ).trimEnd();
 const paths = [
 	pathToFileURL(join(folder, "1.ts")),
@@ -57,7 +57,7 @@ for await (const event of watch(part ? join(folder, `${part}.ts`) : folder))
 			continue;
 		}
 		const [first, second] = (await Promise.all(
-			paths.map((p) => import(p.href)),
+			paths.map((p) => import(p.href))
 		)) as [DayFile, DayFile];
 		const firstResult = await run(first, input);
 		const secondResult = await run(second, input);

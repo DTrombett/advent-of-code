@@ -8,29 +8,20 @@
 	"type": "module",
 	"version": "0",
 	"scripts": {
-		"build": "tsup",
-		"dev": "node --experimental-strip-types --experimental-transform-types src/dev.ts",
-		"lint": "eslint src --fix",
-		"prettier": "prettier --write src/**/*.ts",
-		"start": "node --experimental-strip-types --experimental-transform-types .",
-		"test": "tsc --noEmit && eslint src"
+		"dev": "node --experimental-transform-types src/dev.ts",
+		"start": "node --experimental-transform-types ."
 	},
 	"engines": {
-		"node": ">=22"
+		"node": ">=24"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.16.0",
-		"@tsconfig/node22": "^22.0.0",
-		"@tsconfig/recommended": "^1.0.8",
-		"@tsconfig/strictest": "^2.0.5",
-		"@types/eslint__js": "^8.42.3",
-		"@types/node": "^22.10.1",
-		"dotenv": "^16.4.5",
-		"eslint": "^9.16.0",
-		"eslint-plugin-n": "^17.14.0",
-		"prettier": "^3.4.1",
-		"tsup": "^8.3.5",
-		"typescript": "^5.7.2",
-		"typescript-eslint": "^8.16.0"
+		"@eslint/js": "^9.39.1",
+		"@tsconfig/node24": "^24.0.3",
+		"@tsconfig/node-ts": "^23.6.2",
+		"@tsconfig/strictest": "^2.0.8",
+		"@types/node": "^24.10.1",
+		"eslint": "^9.39.1",
+		"typescript-eslint": "^8.48.0",
+		"typescript": "^5.9.3"
 	}
 }

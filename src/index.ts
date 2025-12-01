@@ -3,9 +3,8 @@ import { readFile } from "node:fs/promises";
 import { constants, setPriority } from "node:os";
 import { join } from "node:path";
 import { argv, stdin, stdout } from "node:process";
-import { setTimeout } from "node:timers/promises";
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
 import { createInterface } from "node:readline/promises";
+import { setTimeout } from "node:timers/promises";
 import { pathToFileURL } from "node:url";
 
 export type ExecuteFunction = (input: string) => unknown;
@@ -36,7 +35,7 @@ new PerformanceObserver((list) => {
 		list
 			.getEntries()
 			.map((e) => `${e.name}: ${e.duration}ms`)
-			.join("\n"),
+			.join("\n")
 	);
 	performance.clearMarks();
 	performance.clearMeasures();
@@ -78,6 +77,6 @@ if (part) {
 		secondResult.time,
 		"ms)\n\tTotal:",
 		firstResult.time + secondResult.time,
-		"ms",
+		"ms"
 	);
 }
