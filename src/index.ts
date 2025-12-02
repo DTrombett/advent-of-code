@@ -35,7 +35,7 @@ new PerformanceObserver((list) => {
 		list
 			.getEntries()
 			.map((e) => `${e.name}: ${e.duration}ms`)
-			.join("\n")
+			.join("\n"),
 	);
 	performance.clearMarks();
 	performance.clearMeasures();
@@ -47,7 +47,7 @@ part ??= "";
 rl.close();
 const folder = `src/${year}/${day}`;
 const input = (
-	await readFile(join("inputs", year, day), { encoding: "utf-8" })
+	await readFile(join("inputs", year, `${day}.txt`), { encoding: "utf-8" })
 ).trimEnd();
 
 if (part) {
@@ -77,6 +77,6 @@ if (part) {
 		secondResult.time,
 		"ms)\n\tTotal:",
 		firstResult.time + secondResult.time,
-		"ms"
+		"ms",
 	);
 }
