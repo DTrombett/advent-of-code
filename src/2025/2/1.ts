@@ -4,13 +4,13 @@ export default (input: string) =>
 		let [a, b] = line.split("-").map(Number) as [number, number];
 
 		for (; a <= b; a++) {
-			const log = Math.floor(Math.log10(a)) + 1;
+			const s = String(a);
 
-			if (log % 2 === 0) {
-				const mod = 10 ** (log / 2);
-
-				if (a % mod === Math.floor(a / mod)) acc += a;
+			if (s.length % 2) {
+				a = 10 ** s.length + 10 ** Math.floor(s.length / 2) - 1;
+				continue;
 			}
+			if (s.match(/^(\d+)\1$/)) acc += a;
 		}
 		return acc;
 	}, 0);
