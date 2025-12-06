@@ -23,7 +23,7 @@ new PerformanceObserver((list) => {
 		list
 			.getEntries()
 			.map((e) => `${e.name}: ${e.duration}ms`)
-			.join("\n")
+			.join("\n"),
 	);
 	performance.clearMarks();
 	performance.clearMeasures();
@@ -34,15 +34,16 @@ day ??= await rl.question("Day: ");
 part ??= "";
 rl.close();
 const folder = `src/${year}/${day}`;
-const input = (
-	await readFile(join("inputs", year, `${day}.txt`), { encoding: "utf-8" })
-).trimEnd();
+let input = await readFile(join("inputs", year, `${day}.txt`), {
+	encoding: "utf-8",
+});
 const paths = [
 	pathToFileURL(join(folder, "1.ts")),
 	pathToFileURL(join(folder, "2.ts")),
 ] as const;
 const partNumber = Number(part) - 1;
 
+if (input.endsWith("\n")) input = input.slice(0, -1);
 for await (const event of watch(part ? join(folder, `${part}.ts`) : folder))
 	try {
 		const now = Date.now().toString();
@@ -57,7 +58,7 @@ for await (const event of watch(part ? join(folder, `${part}.ts`) : folder))
 			continue;
 		}
 		const [first, second] = (await Promise.all(
-			paths.map((p) => import(p.href))
+			paths.map((p) => import(p.href)),
 		)) as [DayFile, DayFile];
 		const firstResult = await run(first, input);
 		const secondResult = await run(second, input);

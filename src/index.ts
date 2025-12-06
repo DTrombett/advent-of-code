@@ -46,10 +46,11 @@ day ??= await rl.question("Day: ");
 part ??= "";
 rl.close();
 const folder = `src/${year}/${day}`;
-const input = (
-	await readFile(join("inputs", year, `${day}.txt`), { encoding: "utf-8" })
-).trimEnd();
+let input = await readFile(join("inputs", year, `${day}.txt`), {
+	encoding: "utf-8",
+});
 
+if (input.endsWith("\n")) input = input.slice(0, -1);
 if (part) {
 	const file: DayFile = await import(
 		pathToFileURL(join(folder, `${part}.ts`)).href

@@ -1,5 +1,10 @@
-node_modules/
-dist/
-inputs/
 .env
+node_modules/
+inputs/
+dist/
 .vscode/
+.cache/
+build/
+.vs/
+
+visual/
