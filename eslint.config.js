@@ -10,6 +10,7 @@ export default defineConfig([
 		extends: ["js/recommended"],
 		languageOptions: { parserOptions: { projectService: true } },
 		rules: {
+			"@typescript-eslint/no-array-delete": "off",
 			"@typescript-eslint/no-explicit-any": "off",
 			"@typescript-eslint/no-namespace": "off",
 			"@typescript-eslint/no-unsafe-assignment": "off",

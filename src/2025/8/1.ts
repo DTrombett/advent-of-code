@@ -29,18 +29,16 @@ export default (input: string) => {
 			combinations.push([dist(coord[i]!, coord[j]!), comb++]);
 	}
 	combinations.sort(([a], [b]) => a - b);
-	for (const [, comb] of combinations.slice(0, 1000)) {
-		const a = comb >>> 10;
-		const b = comb & bits;
+	for (let i = 0; i < 1000; i++) {
+		const a = combinations[i]![1] >>> 10;
+		const b = combinations[i]![1] & bits;
 
-		if (coord[a]![3] !== coord[b]![3]) {
-			coord[a]![3].push(...coord[b]![3]);
+		if (coord[a]![3] !== coord[b]![3])
 			for (const element of coord[b]![3]) {
+				coord[a]![3].push(element);
 				coord[element]![3] = coord[a]![3];
-				// eslint-disable-next-line @typescript-eslint/no-array-delete
 				delete circuits[element];
 			}
-		}
 	}
 	circuits.sort((a, b) => b.length - a.length);
 	return circuits[0]!.length * circuits[1]!.length * circuits[2]!.length;

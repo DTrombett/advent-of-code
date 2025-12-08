@@ -33,15 +33,15 @@ export default (input: string) => {
 		const a = comb >>> 10;
 		const b = comb & bits;
 
-		if (coord[a]![3] !== coord[b]![3]) {
-			if (coord[a]![3].push(...coord[b]![3]) === coord.length)
+		if (coord[a]![3] !== coord[b]![3])
+			if (coord[a]![3].length + coord[b]![3].length === coord.length)
 				return coord[a]![0] * coord[b]![0];
-			for (const element of coord[b]![3]) {
-				coord[element]![3] = coord[a]![3];
-				// eslint-disable-next-line @typescript-eslint/no-array-delete
-				delete circuits[element];
-			}
-		}
+			else
+				for (const element of coord[b]![3]) {
+					coord[a]![3].push(element);
+					coord[element]![3] = coord[a]![3];
+					delete circuits[element];
+				}
 	}
-	return 0;
+	throw new Error("Couldn't find a single circuit");
 };
